@@ -1,1 +1,22 @@
-<p>home-page works!</p>
+<app-lang-switcher></app-lang-switcher>
+<br><br>
+
+<app-date-formatter></app-date-formatter>
+<br><br>
+
+<div class="section">
+    <div class="section__container">
+        <h2 class="section__caption font-head-20">Карточки товаров</h2>
+        <div class="section__body">
+            <div *ngIf="productsService.productsResponse$ | async as response" class="section__cards">
+                <ng-container *ngIf="response.body">
+                    <app-product *ngFor="let product of response.body" [product]="product"></app-product>
+                </ng-container>
+                <div *ngIf="response.loading" class="section__card">
+                    <div class="loader"></div>
+                </div>
+                <div *ngIf="response.hasError">{{ response.errorMsg }}</div>
+            </div>
+        </div>
+    </div>
+</div>

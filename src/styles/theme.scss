@@ -1,0 +1,135 @@
+// Стили палитры (цвета, тени)
+
+:root {
+    // ТЕНИ
+
+    --shadow-card-rest: 0px 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-tooltip: 0px 4px 8px rgba(0, 0, 0, 0.14);
+    --shadow-flyout: 0px 8px 16px rgba(0, 0, 0, 0.14);
+    --shadow-dialog: 0px 32px 64px rgba(0, 0, 0, 0.1876), 0px 2px 21px rgba(0, 0, 0, 0.1474);
+    --shadow-inactive-window: 0px 16px 32px rgba(0, 0, 0, 0.1876), 0px 2px 10.67px rgba(0, 0, 0, 0.1474);
+    --shadow-active-window: 0px 32px 64px rgba(0, 0, 0, 0.28), 0px 2px 21px rgba(0, 0, 0, 0.22);
+    --shadow-demo-aside: 4px 0px 15px rgba(0, 0, 0, 0.08);
+
+    // Neutrals
+
+    --white: #fff;
+    --gray-25: #FAFAFA;
+    --gray-50: #F5F5F5;
+    --gray-100: #F0F0F0;
+    --gray-150: #EAECEC;
+    --gray-200: #DFE1E1;
+    --gray-250: #C5C9C9;
+    --gray-300: #B1B5B5;
+    --gray-350: #919797;
+    --gray-400: #868E8E;
+    --gray-450: #5E6464;
+    --gray-500: #404444;
+    --gray-550: #3B3F3F;
+    --gray-600: #313535;
+    --gray-700: #282A2A;
+    --gray-800: #1E2020;
+    --gray-900: #0F0F0F;
+    --black: #000;
+
+    // Gray with transparency
+
+    --gray-1: #FAFAFA;
+    --gray-2: rgba(0, 0, 0, 0.0241);
+    --gray-5: rgba(0, 0, 0, 0.0578);
+    --gray-10: rgba(0, 0, 0, 0.0924);
+    --gray-30: #F1F1F1;
+
+    // Support colors
+
+    --support-01: #DA1E28;
+    --support-02: #24A148;
+    --support-03: #F1C21B;
+    --support-04: #0043CE;
+
+    --inverse-support-01: #FA4D56;
+    --inverse-support-02: #42BE65;
+    --inverse-support-03: #F1C21B;
+    --inverse-support-04: #4589FF;
+
+    --error-bg: #FFF1F1;
+    --success-bg: #DEFBE6;
+    --warning-bg: #FFF8E1;
+    --notification-bg: #EDF5FF;
+
+    // Tag colors
+
+    --tag-red-rest: #FFF1F1;
+    --tag-red-hover: #F3D5D5;
+    --tag-red-pressed: #EAB5B5;
+
+    --tag-green-rest: #DEFBE6;
+    --tag-green-hover: #BDF0CB;
+    --tag-green-pressed: #A8ECBB;
+
+    --tag-yellow-rest: #FFF9E4;
+    --tag-yellow-hover: #F4EBCC;
+    --tag-yellow-pressed: #F0DD9C;
+
+    --tag-blue-rest: #EDF5FF;
+    --tag-blue-hover: #D0DFF2;
+    --tag-blue-pressed: #B5D0F2;
+
+    --tag-neutral-rest: #F0F0F0;
+    --tag-neutral-hover: #DFE1E1;
+    --tag-neutral-pressed: #C5C9C9;
+
+    // Teal colors
+
+    --teal-50: #E9F6F6;
+    --teal-100: #DBF0F0;
+    --teal-200: #C7FFFF;
+    --teal-300: #B2FFFF;
+    --teal-400: #BBEEEE;
+    --teal-450: #9EFFFF;
+    --teal-500: #74DCDC;
+    --teal-600: #41A4A4;
+    --teal-700: #399393;
+    --teal-800: #358A8A;
+    --teal-900: #288080;
+    --teal-1000: #215050;
+
+    &[color-theme='blue'] {
+        --teal-50: #E9F0F6;
+        --teal-100: #DBE6F0;
+        --teal-200: #C7E4FF;
+        --teal-300: #B2DAFF;
+        --teal-400: #BBDAF7;
+        --teal-450: #9ED0FF;
+        --teal-500: #75B0E7;
+        --teal-600: #2F75B7;
+        --teal-700: #2681D7;
+        --teal-800: #2066A8;
+        --teal-900: #0E4D89;
+        --teal-1000: #0B355D;
+    }
+
+    &[color-theme='purple'] {
+        --teal-50: #E9EAF6;
+        --teal-100: #DBDCF0;
+        --teal-200: #C7C9FF;
+        --teal-300: #B2B5FF;
+        --teal-400: #A6A7DC;
+        --teal-450: #9EA2FF;
+        --teal-500: #7479DC;
+        --teal-600: #6264A7;
+        --teal-700: #494B83;
+        --teal-800: #464775;
+        --teal-900: #3D3E66;
+        --teal-1000: #323348;
+    }
+
+
+    // Others
+
+    --alert-red-hover: #DF5C5C;
+    --alert-red-active: #CB4747;
+    --color-tooltip: #545656;
+    --link: #003E92;
+    --link-hover: #3365A8;
+}

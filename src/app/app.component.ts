@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LangService } from './services/lang.service';
 
 @Component({
     selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'angular-sandbox';
+    constructor(private langService: LangService) {
+        this.langService.init();
+    }
 }

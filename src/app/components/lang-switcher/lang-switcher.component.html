@@ -1,0 +1,8 @@
+<label>
+    <span class="font-basic">{{ 'COMMON.CURRENT_LANG' | translate }}</span>&nbsp;
+    <select class="font-basic" [(ngModel)]="langService.currentLang">
+        <ng-container *ngFor="let lang of langService.langs">
+            <option [selected]="lang === langService.currentLang">{{ lang }}</option>
+        </ng-container>
+    </select>
+</label>

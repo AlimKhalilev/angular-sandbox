@@ -1,0 +1,27 @@
+
+<h2 class="font-head-20">{{ 'COMMON.DATE_DEMO' | translate }}</h2>
+
+<br>
+
+<ul>
+    <li>
+        <time class="font-basic">{{ 'COMMON.SOME_DATE' | translate }}: 
+            <span class="font-head-14">{{ someDate | date:'dd.MM.yyyy HH:mm' }}</span>
+        </time>
+    </li>
+    <li>
+        <time class="font-basic">{{ 'COMMON.TODAY' | translate }}: 
+            <span class="font-head-14">{{ todayDate | date:'d MMMM yyyy':undefined:('COMMON.LANG_CODE' | translate) }}</span>
+        </time>
+    </li>
+    <li>
+        <time class="font-basic">{{ 'COMMON.SOME_DATE' | translate }}: 
+            <span class="font-head-14">{{ someDate | date:'d MMMM yyyy':undefined:('COMMON.LANG_CODE' | translate) }}</span>
+        </time>
+    </li>
+    <li>
+        <time class="font-basic">{{ 'COMMON.DATE_FROM_TS' | translate }}: 
+            <span class="font-head-14">{{ dateFromTs }}</span>
+        </time>
+    </li>
+</ul>

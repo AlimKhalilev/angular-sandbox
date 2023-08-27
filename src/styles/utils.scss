@@ -1,0 +1,68 @@
+// Глобальные стили
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    outline: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    clip: rect(0 0 0 0);
+}
+
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lazy-transition {
+    --transition: 0.3s ease-in-out;
+}
+
+.sherp-scrollbar, .sherp-context-mat-menu {
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--gray-250);
+        border-radius: 2px;
+    }
+}
+
+.loader {
+    --size: 4px;
+    width: calc(var(--size) * 12); /* the size */
+    padding: var(--size); /* the border thickness */
+    background-color: black; /* the color */
+    aspect-ratio: 1;
+    border-radius: 50%;
+    --_m: conic-gradient(#0000, #000), linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    box-sizing: border-box;
+    animation: load 1s linear infinite;
+
+    position: absolute;
+    left: calc(50% - 22px);
+    top: calc(50% - 22px);
+}
+
+@keyframes load {
+    to {
+        transform: rotate(1turn);
+    }
+}

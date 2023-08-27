@@ -1,0 +1,38 @@
+.section {
+    background-color: var(--gray-150);
+    padding: 16px;
+
+    // .section__container
+
+    &__container {
+        max-width: 1320px;
+        margin: 0 auto;
+    }
+
+    // .section__caption
+
+    &__caption {
+        margin-bottom: 16px;
+    }
+
+    // .section__body
+
+    &__body {
+
+    }
+
+    // .section__cards
+
+    &__cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+
+    // .section__card
+
+    &__card {
+        min-height: 200px;
+        position: relative;
+    }
+}

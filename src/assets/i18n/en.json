@@ -1,0 +1,11 @@
+{
+    "COMMON": {
+        "HELLO": "Hello",
+        "DATE_DEMO": "Demo work with dates",
+        "DATE_FROM_TS": "Demo date from ts file",
+        "TODAY": "Today",
+        "SOME_DATE": "Some date",
+        "CURRENT_LANG": "Current language",
+        "LANG_CODE": "en"
+    }
+}

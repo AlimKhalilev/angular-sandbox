@@ -1,0 +1,17 @@
+<div *ngIf="product" class="product-card">
+    <div class="product-card__container">
+        <div class="product-card__header">
+            <img class="product-card__img" [src]="product.image" alt="Изображение продукта">
+        </div>
+        <div class="product-card__body">
+            <div class="product-card__block">
+                <h3 class="product-card__caption font-head-18">{{ product.caption }}</h3>
+                <time class="product-card__add-date font-label">{{ product.add_date | date:'d MMMM yyyy':undefined:('COMMON.LANG_CODE' | translate) }}</time>
+                <span class="product-card__cost font-head-20">{{ product.cost }} $</span>
+            </div>
+            <div class="product-card__block font-basic">
+                <p class="product-card__description">{{ product.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
