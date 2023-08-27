@@ -9,8 +9,13 @@
         <h2 class="section__caption font-head-20">Карточки товаров</h2>
         <div class="section__body">
             <div *ngIf="productsService.productsResponse$ | async as response" class="section__cards">
-                <ng-container *ngIf="response.body">
-                    <app-product *ngFor="let product of response.body" [product]="product"></app-product>
+                <ng-container *ngIf="response.body as products">
+                    <ng-container *ngIf="products.length === 0">
+                        <span>Список продуктов пуст</span>
+                    </ng-container>
+                    <ng-container *ngIf="products.length > 0">
+                        <app-product *ngFor="let product of products" [product]="product"></app-product>
+                    </ng-container>
                 </ng-container>
                 <div *ngIf="response.loading" class="section__card">
                     <div class="loader"></div>
