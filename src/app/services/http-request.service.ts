@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, retry, Subscriber } from 'rxjs';
+import { catchError, map, Observable, of, OperatorFunction, retry, Subscriber } from 'rxjs';
 import { EHttpMethod, IHttpResponse } from '../data/http-request';
 
 @Injectable({
@@ -17,28 +17,28 @@ export class HttpRequestService {
         switch (method) {
             case EHttpMethod.GET:
                 request = this.http.get<T>(url, { params: params }).pipe(
-                    map(result => ({ body: result })),
+                    this.mapResponse<T>(),
                     retry({ count: 2, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.POST:
                 request = this.http.post<T>(url, { params: params }).pipe(
-                    map(result => ({ body: result })),
+                    this.mapResponse<T>(),
                     retry({ count: 2, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.PUT:
                 request = this.http.put<T>(url, { params: params }).pipe(
-                    map(result => ({ body: result })),
+                    this.mapResponse<T>(),
                     retry({ count: 2, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.DELETE:
                 request = this.http.delete<T>(url, { params: params }).pipe(
-                    map(result => ({ body: result })),
+                    this.mapResponse<T>(),
                     retry({ count: 2, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
@@ -66,6 +66,14 @@ export class HttpRequestService {
                 subscriber.complete();
             })
         });
+    }
+
+    /** Метод обработки ответа запроса */
+    private mapResponse<T>(): OperatorFunction<T, IHttpResponse<T>> {
+        return map((result: T) => {
+            // some code
+            return { body: result }
+        })
     }
 
     /** Метод обработки ошибок http запроса */
