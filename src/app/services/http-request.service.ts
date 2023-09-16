@@ -10,36 +10,36 @@ export class HttpRequestService {
     constructor(private http: HttpClient) {}
 
     /** Отправляет запрос на сервер с опциональными параметрами и проверкой на ошибку запроса */
-    public sendHttpRequest<T>(method: EHttpMethod, url: string = '', paramsData: {} = {}): Observable<IHttpResponse<T>> {
-        const params: HttpParams = new HttpParams({ fromObject: paramsData });
+    public sendHttpRequest<T>(method: EHttpMethod, url: string = '', params: {} = {}): Observable<IHttpResponse<T>> {
+        const queryParams: HttpParams = new HttpParams({ fromObject: params });
         let request: Observable<IHttpResponse<T>> = new Observable();
 
         switch (method) {
             case EHttpMethod.GET:
-                request = this.http.get<T>(url, { params: params }).pipe(
+                request = this.http.get<T>(url, { params: queryParams }).pipe(
                     this.mapResponse<T>(),
                     retry({ count: 2, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.POST:
-                request = this.http.post<T>(url, { params: params }).pipe(
+                request = this.http.post<T>(url, params).pipe(
                     this.mapResponse<T>(),
                     retry({ count: 2, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.PUT:
-                request = this.http.put<T>(url, { params: params }).pipe(
+                request = this.http.put<T>(url, params).pipe(
                     this.mapResponse<T>(),
-                    retry({ count: 2, delay: 500 }),
+                    retry({ count: 1, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.DELETE:
-                request = this.http.delete<T>(url, { params: params }).pipe(
+                request = this.http.delete<T>(url, params).pipe(
                     this.mapResponse<T>(),
-                    retry({ count: 2, delay: 500 }),
+                    retry({ count: 1, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
@@ -86,6 +86,6 @@ export class HttpRequestService {
             // Тело ответа может содержать подсказки о том, что пошло не так.
             console.error(`Backend error: ${error.status}, details:`, error.error);
         }
-        return of({ hasError: true, errorMsg: error.message });
+        return of<IHttpResponse<T>>({ hasError: true, errorMsg: error.message, errorData: error.error });
     }
 }

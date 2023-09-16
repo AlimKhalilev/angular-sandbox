@@ -8,6 +8,8 @@ export interface IHttpResponse<T> {
     hasError?: boolean,
     /** Сообщения ошибки загрузки */
     errorMsg?: string,
+    /** Объект данных ошибки загрузки */
+    errorData?: Record<string, any>,
 }
 
 /** Список методов HTTP запросов */

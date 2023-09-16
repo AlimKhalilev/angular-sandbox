@@ -26,19 +26,19 @@ export class LangService {
     }
 
     /** Инициализация языков и переводов */
-    public init() {
+    public init(): void {
         this.translate.addLangs(this.langs);
         this.translate.setDefaultLang(this.defaultLang);
         this.currentLang = localStorage.getItem(this.langStorageKey) as ELang || this._currentLang;
     }
 
     /** Получить текущий язык */
-    get currentLang() {
+    public get currentLang(): ELang {
         return this._currentLang;
     }
 
     /** Сменить текущий язык */
-    set currentLang(lang: ELang) {
+    public set currentLang(lang: ELang) {
         this._currentLang = lang;
         this.translate.use(this._currentLang);
         this.renderer.setProperty(document.documentElement, 'lang', this._currentLang);

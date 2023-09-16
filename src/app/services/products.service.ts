@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { EHttpMethod, IHttpResponse } from '../data/http-request';
 import { IProduct } from '../data/product';
 import { HttpRequestService } from './http-request.service';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
