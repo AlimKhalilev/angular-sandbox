@@ -1,26 +1,27 @@
-<button (click)="logout()">Выйти</button>
-<br><br>
+<div>
+    <h3 class="font-head-18">Привет, {{ authService.user?.username }}!</h3>
+    <button (click)="authService.logout()">Выйти</button>
+</div>
 
-<app-lang-switcher></app-lang-switcher>
-<br><br>
-
-<app-date-formatter></app-date-formatter>
 <br><br>
 
 <div class="section">
     <div class="section__container">
-        <h2 class="section__caption font-head-20">Карточки товаров</h2>
+        <h2 class="section__caption font-head-20">Записи пользователя</h2>
         <div class="section__body">
-            <div *ngIf="productsService.productsResponse$ | async as response" class="section__cards">
-                <ng-container *ngIf="response.body as products">
-                    <ng-container *ngIf="products.length === 0">
-                        <span>Список продуктов пуст</span>
+            <div *ngIf="noteService.notesResponse$ | async as response" class="section__cards">
+                <ng-container *ngIf="response.body as notes">
+                    <ng-container *ngIf="notes.length === 0">
+                        <span>Список записей пуст</span>
                     </ng-container>
-                    <ng-container *ngIf="products.length > 0">
-                        <app-product *ngFor="let product of products" [product]="product"></app-product>
-                    </ng-container>
+                    <div class="notes" *ngIf="notes.length > 0">
+                        <div class="note" *ngFor="let note of notes">
+                            <h4 class="note__caption font-head-16">{{ note.title }}</h4>
+                            <p class="note__content font-basic" [innerHTML]="note.content | sanitizeHtml"></p>
+                        </div>
+                    </div>
                 </ng-container>
-                <div *ngIf="response.loading" class="section__card">
+                <div *ngIf="response.loading; else addNoteForm" class="section__card">
                     <div class="loader"></div>
                 </div>
                 <div *ngIf="response.hasError">{{ response.errorMsg }}</div>
@@ -28,3 +29,14 @@
         </div>
     </div>
 </div>
+
+<ng-template #addNoteForm>
+    <br><br>
+    <div>
+        <input [(ngModel)]="note.title" type="text" placeholder="Заголовок записи">
+        <br><br>
+        <textarea [(ngModel)]="note.content" placeholder="Текст записи"></textarea>
+        <br><br>
+        <button (click)="addNote()" [disabled]="!note.title || !note.content">Добавить запись</button>
+    </div>
+</ng-template>

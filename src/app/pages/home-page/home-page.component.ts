@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
 import { AuthService } from '../../services/auth.service';
+import { NoteService } from '../../services/note.service';
+import { INoteAdd } from '../../data/note';
 
 @Component({
     selector: 'app-home-page',
@@ -8,13 +9,27 @@ import { AuthService } from '../../services/auth.service';
     styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-    constructor(public productsService: ProductsService, private authService: AuthService) {}
+    /** Объект логина */
+    public note: INoteAdd = {
+        user_id: -1,
+        title: '',
+        content: ''
+    };
+
+    constructor(public authService: AuthService, public noteService: NoteService) {}
 
     ngOnInit(): void {
-        this.productsService.loadProducts();
+        if (this.authService.user) {
+            this.noteService.getAllNotes(+this.authService.user.id);
+        }
     }
 
-    logout() {
-        this.authService.logout();
+    addNote() {
+        if (this.authService.user) {
+            this.note.user_id = +this.authService.user.id;
+            this.noteService.addNote(this.note).subscribe(response => {
+                this.noteService.notesResponse$.next(response);
+            });
+        }
     }
 }

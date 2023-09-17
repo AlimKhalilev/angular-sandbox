@@ -16,7 +16,7 @@ export class AuthService {
 
     /** Авторизации по почте и паролю */
     public login(login: ILogin): Observable<IHttpResponse<IAuthResponse<IJwt>>> {
-        return this.httpRequestService.sendHttpRequest<IAuthResponse<IJwt>>(EHttpMethod.POST, environment.authEndpoint + '/auth', login);
+        return this.httpRequestService.request<IAuthResponse<IJwt>>(EHttpMethod.POST, environment.authEndpoint + '/auth', login);
     }
 
     /** Выход из учетной записи */
@@ -27,14 +27,14 @@ export class AuthService {
 
     /** Обновить просроченный токен */
     public refreshToken(): Observable<IHttpResponse<IAuthResponse<IJwt>>> {
-        return this.httpRequestService.sendHttpRequest<IAuthResponse<IJwt>>(EHttpMethod.POST, environment.authEndpoint + '/auth/refresh', {
+        return this.httpRequestService.request<IAuthResponse<IJwt>>(EHttpMethod.POST, environment.authEndpoint + '/auth/refresh', {
             JWT: this.token
         });
     }
 
     /** Регистрация нового пользователя */
     public registration(data: IRegistration): Observable<IHttpResponse<IRegistrationResponse>> {
-        return this.httpRequestService.sendHttpRequest<IRegistrationResponse>(EHttpMethod.POST, environment.authEndpoint + '/users', data);
+        return this.httpRequestService.request<IRegistrationResponse>(EHttpMethod.POST, environment.authEndpoint + '/users', data);
     }
 
     /** Метод проверки аутентификации пользователя */

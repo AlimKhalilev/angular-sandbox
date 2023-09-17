@@ -17,7 +17,7 @@ export class ProductsService {
     /** Загрузить продукты */
     loadProducts(): void {
         if (!this.productsResponse$.value.body) {
-            this.httpRequestService.sendHttpRequest<IProduct[]>(EHttpMethod.GET, environment.serverEndpoint + 'products').subscribe(response => {
+            this.httpRequestService.request<IProduct[]>(EHttpMethod.GET, environment.serverEndpoint + '/products').subscribe(response => {
                 this.productsResponse$.next(response);
             });
         }

@@ -12,6 +12,8 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/registration-page/registration-page.module').then((m) => m.RegistrationPageModule),
         canActivate: [NonAuthGuard]
     },
+    { path: 'products', loadChildren: () => import('./pages/products-page/products-page.module').then(m => m.ProductsPageModule), canActivate: [AuthGuard] },
+    { path: 'sandbox', loadChildren: () => import('./pages/sandbox-page/sandbox-page.module').then(m => m.SandboxPageModule) },
     { path: '**', redirectTo: '' }
 ];
 

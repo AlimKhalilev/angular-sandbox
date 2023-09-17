@@ -10,7 +10,7 @@ export class HttpRequestService {
     constructor(private http: HttpClient) {}
 
     /** Отправляет запрос на сервер с опциональными параметрами и проверкой на ошибку запроса */
-    public sendHttpRequest<T>(method: EHttpMethod, url: string = '', params: {} = {}): Observable<IHttpResponse<T>> {
+    public request<T>(method: EHttpMethod, url: string = '', params: {} = {}): Observable<IHttpResponse<T>> {
         const queryParams: HttpParams = new HttpParams({ fromObject: params });
         let request: Observable<IHttpResponse<T>> = new Observable();
 
@@ -55,7 +55,7 @@ export class HttpRequestService {
     }
 
     /** Отправляет запрос на сервер с обработкой ошибок и возвращает Blob объект */
-    public sendHttpRequestBlob(url: string = '', paramsData: {} = {}): Observable<IHttpResponse<Blob>> {
+    public requestBlob(url: string = '', paramsData: {} = {}): Observable<IHttpResponse<Blob>> {
         return new Observable((subscriber: Subscriber<IHttpResponse<Blob>>) => {
             subscriber.next({ loading: true });
             this.http.post(url, paramsData, { observe: 'response', responseType: 'blob' }).pipe(
