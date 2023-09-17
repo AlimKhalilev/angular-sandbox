@@ -1,6 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ELang } from '../data/lang';
+import { LANG_STORAGE_KEY } from '../helpers/constants';
 
 @Injectable({
     providedIn: 'root'
@@ -15,9 +16,6 @@ export class LangService {
     /** Текущий язык приложения */
     private _currentLang: ELang = this.defaultLang;
 
-    /** Ключ для обращения к localStorage */
-    private langStorageKey: string = 'app_lang';
-
     /** Объект DOM рендера */
     private renderer: Renderer2;
 
@@ -29,7 +27,7 @@ export class LangService {
     public init(): void {
         this.translate.addLangs(this.langs);
         this.translate.setDefaultLang(this.defaultLang);
-        this.currentLang = localStorage.getItem(this.langStorageKey) as ELang || this._currentLang;
+        this.currentLang = localStorage.getItem(LANG_STORAGE_KEY) as ELang || this._currentLang;
     }
 
     /** Получить текущий язык */
@@ -42,6 +40,6 @@ export class LangService {
         this._currentLang = lang;
         this.translate.use(this._currentLang);
         this.renderer.setProperty(document.documentElement, 'lang', this._currentLang);
-        localStorage.setItem(this.langStorageKey, lang);
+        localStorage.setItem(LANG_STORAGE_KEY, lang);
     }
 }

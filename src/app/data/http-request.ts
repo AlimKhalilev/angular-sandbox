@@ -19,3 +19,9 @@ export enum EHttpMethod {
     PUT = 'put',
     DELETE = 'delete'
 }
+
+/** Интерфейс данных получения ответа запросов авторизации */
+export interface IAuthResponse<T> {
+    data: T;
+    success: boolean;
+}

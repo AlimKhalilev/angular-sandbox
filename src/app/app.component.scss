@@ -1,0 +1,50 @@
+.app {
+    display: flex;
+    min-height: 100vh;
+
+    // .app__aside
+
+    &__aside {
+        min-width: 200px;
+        max-width: 200px;
+        background-color: var(--gray-50);
+        border-right: 1px solid var(--gray-200);
+    }
+
+    // .app__menu
+
+    &__menu {
+        position: sticky;
+        top: 0;
+    }
+
+    // .app__body
+
+    &__body {
+        flex-grow: 1;
+        padding: 12px;
+    }
+}
+
+.menu {
+
+    // .menu__item
+
+    &__item {
+    }
+
+    // .menu__link
+
+    &__link {
+        color: var(--gray-700);
+        text-decoration: none;
+        display: inline-block;
+        padding: 6px 12px;
+        width: 100%;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+            background-color: var(--gray-200);
+        }
+    }
+}

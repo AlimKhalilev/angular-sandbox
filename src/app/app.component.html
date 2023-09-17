@@ -1,9 +1,12 @@
-<div class="font-basic">
-    <a [routerLink]="'/'">Home</a> &nbsp;
-    <a [routerLink]="'/about'">About</a>
-    <a [routerLink]="'/login'">Login</a>
+<div class="app">
+    <div class="app__aside">
+        <ul class="app__menu menu">
+            <li class="menu__item" *ngFor="let route of appRoutes">
+                <a class="menu__link font-basic" [routerLink]="route.path">{{ route.path === '' ? 'home' : route.path }}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="app__body">
+        <router-outlet></router-outlet>
+    </div>
 </div>
-
-<br>
-
-<router-outlet></router-outlet>

@@ -1,0 +1,19 @@
+<h3>Регистрация</h3>
+<br>
+<div *ngIf="!loading">
+    <input [(ngModel)]="registrationData.email" type="text" placeholder="Введите почту">
+    <br><br>
+    <input [(ngModel)]="registrationData.password" type="text" placeholder="Введите пароль">
+    <br><br>
+    <input [(ngModel)]="registrationData.user_login" type="text" placeholder="Логин">
+    <br><br>
+    <input [(ngModel)]="registrationData.first_name" type="text" placeholder="Имя">
+    <br><br>
+    <input [(ngModel)]="registrationData.last_name" type="text" placeholder="Фамилия">
+    <br><br>
+    <button (click)="registration()">Зарегистрироваться</button>
+</div>
+
+<span *ngIf="errorMsg && !loading" style="color: red;">{{ errorMsg }}</span>
+
+<div class="loader" *ngIf="loading"></div>

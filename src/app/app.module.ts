@@ -7,9 +7,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-import { JWT_TOKEN_KEY } from './services/auth.service';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { JwtTokenInterceptor } from './interceptors/jwt.interceptor';
+import { JWT_TOKEN_STORAGE_KEY } from './helpers/constants';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -19,7 +19,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 export const jwtOptionsFactory = () => ({
-    tokenGetter: () => localStorage.getItem(JWT_TOKEN_KEY),
+    tokenGetter: () => localStorage.getItem(JWT_TOKEN_STORAGE_KEY),
     whitelisteDomains: [''],
 });
 

@@ -18,28 +18,28 @@ export class HttpRequestService {
             case EHttpMethod.GET:
                 request = this.http.get<T>(url, { params: queryParams }).pipe(
                     this.mapResponse<T>(),
-                    retry({ count: 2, delay: 500 }),
+                    retry({ count: 0, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.POST:
                 request = this.http.post<T>(url, params).pipe(
                     this.mapResponse<T>(),
-                    retry({ count: 2, delay: 500 }),
+                    retry({ count: 0, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.PUT:
                 request = this.http.put<T>(url, params).pipe(
                     this.mapResponse<T>(),
-                    retry({ count: 1, delay: 500 }),
+                    retry({ count: 0, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;
             case EHttpMethod.DELETE:
                 request = this.http.delete<T>(url, params).pipe(
                     this.mapResponse<T>(),
-                    retry({ count: 1, delay: 500 }),
+                    retry({ count: 0, delay: 500 }),
                     catchError(this.handleError<T>)
                 );
                 break;

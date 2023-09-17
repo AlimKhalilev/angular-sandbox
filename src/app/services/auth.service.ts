@@ -1,29 +1,40 @@
 import { Injectable } from '@angular/core';
-import { IAuthResponse, ILogin, IUser } from '../data/auth';
+import { IJwt, ILogin, IRegistration, IRegistrationResponse, IUser } from '../data/auth';
 import { HttpRequestService } from './http-request.service';
-import { EHttpMethod } from '../data/http-request';
+import { EHttpMethod, IAuthResponse, IHttpResponse } from '../data/http-request';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-export const JWT_TOKEN_KEY = 'app_access_token';
-export const JWT_TOKEN_PAYLOAD = 'app_access_token_payload';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { JWT_TOKEN_STORAGE_KEY, JWT_TOKEN_STORAGE_PAYLOAD } from '../helpers/constants';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    /** Payload данные токена (данные пользователя) */
-    private _tokenPayload: string = '';
+    constructor(private httpRequestService: HttpRequestService, private helper: JwtHelperService, private router: Router) {}
 
-    constructor(private httpRequestService: HttpRequestService, private helper: JwtHelperService) {}
+    /** Авторизации по почте и паролю */
+    public login(login: ILogin): Observable<IHttpResponse<IAuthResponse<IJwt>>> {
+        return this.httpRequestService.sendHttpRequest<IAuthResponse<IJwt>>(EHttpMethod.POST, environment.authEndpoint + '/auth', login);
+    }
 
-    /** Метода авторизации по почте и паролю */
-    public login(loginPayload: ILogin) {
-        this.httpRequestService.sendHttpRequest<IAuthResponse>(EHttpMethod.POST, environment.loginEndpoint, loginPayload).subscribe(response => {
-            if (response.body && response.body.success) {
-                this.token = response.body.data.jwt;
-            }
-        })
+    /** Выход из учетной записи */
+    public logout() {
+        this.token = '';
+        this.router.navigate(['login']);
+    }
+
+    /** Обновить просроченный токен */
+    public refreshToken(): Observable<IHttpResponse<IAuthResponse<IJwt>>> {
+        return this.httpRequestService.sendHttpRequest<IAuthResponse<IJwt>>(EHttpMethod.POST, environment.authEndpoint + '/auth/refresh', {
+            JWT: this.token
+        });
+    }
+
+    /** Регистрация нового пользователя */
+    public registration(data: IRegistration): Observable<IHttpResponse<IRegistrationResponse>> {
+        return this.httpRequestService.sendHttpRequest<IRegistrationResponse>(EHttpMethod.POST, environment.authEndpoint + '/users', data);
     }
 
     /** Метод проверки аутентификации пользователя */
@@ -32,28 +43,22 @@ export class AuthService {
     }
 
     /** Объект данных пользователя */
-    public get user(): IUser | undefined {
+    public get user(): IUser | null {
         try {
-            return JSON.parse(this._tokenPayload);
-        }
-        catch {
-            return undefined;
+            return JSON.parse(localStorage.getItem(JWT_TOKEN_STORAGE_PAYLOAD) || '');
+        } catch {
+            return null;
         }
     }
 
     /** Получить токен */
     public get token(): string {
-        return localStorage.getItem(JWT_TOKEN_KEY) || '';
+        return localStorage.getItem(JWT_TOKEN_STORAGE_KEY) || '';
     }
 
     /** Установить токен */
     public set token(token: string) {
-        localStorage.setItem(JWT_TOKEN_KEY, token);
-
-        const user: IUser | null = this.helper.decodeToken(token);
-        if (user !== null) {
-            this._tokenPayload = JSON.stringify(user);
-            localStorage.setItem(JWT_TOKEN_PAYLOAD, this._tokenPayload);
-        }
+        localStorage.setItem(JWT_TOKEN_STORAGE_KEY, token);
+        localStorage.setItem(JWT_TOKEN_STORAGE_PAYLOAD, JSON.stringify(this.helper.decodeToken(token)));
     }
 }

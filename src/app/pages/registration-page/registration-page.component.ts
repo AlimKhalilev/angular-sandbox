@@ -1,17 +1,24 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ILogin } from '../../data/auth';
+import { IRegistration } from '../../data/auth';
 import { Router } from '@angular/router';
 import { JWT_AUTH_KEY } from '../../helpers/constants';
 
 @Component({
-    selector: 'app-login-page',
-    templateUrl: './login-page.component.html',
-    styleUrls: ['./login-page.component.scss']
+    selector: 'app-registration-page',
+    templateUrl: './registration-page.component.html',
+    styleUrls: ['./registration-page.component.scss']
 })
-export class LoginPageComponent {
-    /** Объект логина */
-    public loginData: ILogin = { email: 'user@mail.ru', password: '6*Wc28e!o81d^NTwJVzYMT82', auth_key: JWT_AUTH_KEY };
+export class RegistrationPageComponent {
+    /** Объект регистрации */
+    public registrationData: IRegistration = {
+        email: 'niko@mail.ru',
+        password: '123456',
+        user_login: 'niko',
+        first_name: 'Нико',
+        last_name: 'Чемп',
+        auth_key: JWT_AUTH_KEY
+    };
 
     /** Флаг загрузки */
     public loading: boolean = false;
@@ -21,13 +28,14 @@ export class LoginPageComponent {
 
     constructor(private authService: AuthService, private router: Router) {}
 
-    public login() {
-        this.authService.login(this.loginData).subscribe((response) => {
+    registration() {
+        this.authService.registration(this.registrationData).subscribe(response => {
             if (response.loading) {
                 this.loading = true;
-            } else {
-                if (response.body && response.body.success && response.body.data.jwt) {
-                    this.authService.token = response.body.data.jwt;
+            }
+            else {
+                if (response.body && response.body.success && response.body.jwt) {
+                    this.authService.token = response.body.jwt;
                     this.router.navigate(['home']);
                 }
                 if (response.errorData) {
